@@ -5,16 +5,16 @@ import org.apache.spark.streaming.{Seconds, StreamingContext}
 
 object Main {
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf().setAppName("FileWordCount").setMaster("local[2]")
+    val conf = new SparkConf().setAppName("FileWordCount").setMaster("local[*]")
     val ssc = new StreamingContext(conf, Seconds(5))
 
-    val lines = ssc.textFileStream("/workspace/novel.txt")
+    val lines = ssc.textFileStream("/workspace/input/")
     val words = lines.flatMap(_.split(" "))
     val wordCounts = words.map((_, 1)).reduceByKey(_ + _)
 
     wordCounts.foreachRDD(rdd => {
       if (!rdd.isEmpty()) {
-        rdd.saveAsTextFile("/workspace/streaming-result/output-" + System.currentTimeMillis() + ".txt")
+        rdd.saveAsTextFile("/workspace/output/" + System.currentTimeMillis() + ".txt")
       }
     })
 
