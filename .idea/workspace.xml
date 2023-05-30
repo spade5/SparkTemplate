@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13ad02c7-5871-4f7b-a1df-ea7ce89c2f85" name="Changes" comment="">
+    <list default="true" id="13ad02c7-5871-4f7b-a1df-ea7ce89c2f85" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/name/spade5/main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/name/spade5/main.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,8 +62,16 @@
       <updated>1672303902599</updated>
       <workItem from="1682569182233" duration="2506000" />
       <workItem from="1684397209261" duration="4944000" />
-      <workItem from="1685433141908" duration="191000" />
+      <workItem from="1685433141908" duration="1126000" />
     </task>
+    <task id="LOCAL-00001" summary="Changes">
+      <created>1685433390697</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1685433390697</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,5 +87,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes" />
   </component>
 </project>
