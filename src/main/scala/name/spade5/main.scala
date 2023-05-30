@@ -4,6 +4,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka010._
 import org.apache.kafka.common.serialization.StringDeserializer
+import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming._
 
 object Main {
@@ -30,10 +31,10 @@ object Main {
       LocationStrategies.PreferConsistent,
       ConsumerStrategies.Subscribe[String, String](topics, kafkaParams)
     )
-    kafkaDStream.repartition(30).flatMap(line => {
+    kafkaDStream.flatMap(line => {
       val splits = line.value().split(",")
       splits(3).split(" ")
-    }).map((_, 1)).reduceByKey(_ + _).saveAsTextFiles("/home/chenhao/output/counts")
+    }).map((_, 1)).reduceByKey(_ + _, 3).saveAsTextFiles("/home/chenhao/output/counts")
     /*kafkaDStream.foreachRDD(kafkaRDD => {
       if (!kafkaRDD.isEmpty()) {
         //获取当前批次的RDD的偏移量
