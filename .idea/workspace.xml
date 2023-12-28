@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="13ad02c7-5871-4f7b-a1df-ea7ce89c2f85" name="Changes" comment="scope">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/name/spade5/main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/name/spade5/main.scala" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +66,7 @@
       <workItem from="1685590715785" duration="760000" />
       <workItem from="1701049924642" duration="20541000" />
       <workItem from="1703728763789" duration="196000" />
-      <workItem from="1703747461055" duration="639000" />
+      <workItem from="1703747461055" duration="2200000" />
     </task>
     <task id="LOCAL-00001" summary="Changes">
       <created>1685433390697</created>
@@ -94,7 +93,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
