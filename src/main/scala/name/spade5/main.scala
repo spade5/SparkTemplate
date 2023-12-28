@@ -6,17 +6,41 @@ import org.apache.spark.streaming.kafka010._
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming._
+import org.apache.spark.PromptPartitioner
+import org.apache.spark.HashPartitioner
 
 object Main {
   def main(args: Array[String]): Unit = {
-    val conf = new SparkConf().setAppName("WordCount")
 //    conf.set("spark.executor.instances", "3")
 //    conf.set("spark.executor.cores", "1")
 //    conf.set("spark.streaming.concurrentJobs", "1")
-    conf.set("spark.streaming.kafka.maxRatePerPartition", "30000")
-    val spark = SparkSession.builder().config(conf).getOrCreate()
+    val conf = new SparkConf()
 
+    var usePrompt = false
+    if (args.length > 0 && args(0) == "prompt") {
+      usePrompt = true
+      println("using prompt partitioner!!!")
+      conf.setExecutorEnv("Partitioner","PromptPartitioner" )
+    }
+
+    var topic = "twitter"
+    if (args.length > 1) {
+      topic = args(1)
+    }
+
+    var maxRate = "200000"
+
+    if (args.length > 2) {
+      maxRate = args(2)
+    }
+    conf.set("spark.streaming.kafka.maxRatePerPartition", maxRate)
+
+    conf.setAppName("WordCount-" + topic + "-" + maxRate)
+
+    val spark = SparkSession.builder().config(conf).getOrCreate()
     val ssc = new StreamingContext(spark.sparkContext, Seconds(1))
+
+    val topics = Array(topic)
     val kafkaParams = Map[String, Object](
       "bootstrap.servers" -> "node85:9092",
       "key.deserializer" -> classOf[StringDeserializer],
@@ -25,16 +49,24 @@ object Main {
       "auto.offset.reset" -> "earliest",
       "enable.auto.commit" -> (true: java.lang.Boolean)
     )
-    val topics = Array("tweets")
+
     val kafkaDStream = KafkaUtils.createDirectStream[String, String](
       ssc,
       LocationStrategies.PreferConsistent,
       ConsumerStrategies.Subscribe[String, String](topics, kafkaParams)
     )
-    kafkaDStream.flatMap(line => {
-      val splits = line.value().split(",")
-      splits(3).split(" ")
-    }).map((_, 1)).reduceByKey(_ + _, 3).saveAsTextFiles("/home/chenhao/output/counts")
+
+    val rdd0 = kafkaDStream.flatMap(_.value().split(" ")).map((_, 1))
+
+    val rdd1 = rdd0.repartition(3)
+      .map((_, 1))
+      .reduceByKey(_ + _)
+      .saveAsTextFiles("/home/chenhao/output/counts")
+
+//    kafkaDStream.flatMap(line => {
+//      val splits = line.value().split(",")
+//      splits(3).split(" ")
+//    }).map((_, 1)).reduceByKey(_ + _).saveAsTextFiles("/home/chenhao/output/counts")
     /*kafkaDStream.foreachRDD(kafkaRDD => {
       if (!kafkaRDD.isEmpty()) {
         //获取当前批次的RDD的偏移量
@@ -57,7 +89,7 @@ object Main {
     })*/
 
     ssc.start()
-    ssc.awaitTerminationOrTimeout(50 * 1000)
+    ssc.awaitTerminationOrTimeout(3000 * 1000)
     ssc.stop()
   }
 }
