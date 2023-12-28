@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="13ad02c7-5871-4f7b-a1df-ea7ce89c2f85" name="Changes" comment="scope">
+    <list default="true" id="13ad02c7-5871-4f7b-a1df-ea7ce89c2f85" name="Changes" comment="partitioner test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/name/spade5/main.scala" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/scala/name/spade5/main.scala" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +66,7 @@
       <workItem from="1685590715785" duration="760000" />
       <workItem from="1701049924642" duration="20541000" />
       <workItem from="1703728763789" duration="196000" />
-      <workItem from="1703747461055" duration="2200000" />
+      <workItem from="1703747461055" duration="3334000" />
     </task>
     <task id="LOCAL-00001" summary="Changes">
       <created>1685433390697</created>
@@ -82,7 +82,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685439652683</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="partitioner test">
+      <created>1703751586293</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1703751586295</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +121,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Changes" />
     <MESSAGE value="scope" />
-    <option name="LAST_COMMIT_MESSAGE" value="scope" />
+    <MESSAGE value="partitioner test" />
+    <option name="LAST_COMMIT_MESSAGE" value="partitioner test" />
   </component>
 </project>
