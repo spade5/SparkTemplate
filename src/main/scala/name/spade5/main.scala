@@ -4,10 +4,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.kafka010._
 import org.apache.kafka.common.serialization.StringDeserializer
-import org.apache.spark.storage.StorageLevel
 import org.apache.spark.streaming._
-import org.apache.spark.PromptPartitioner
-import org.apache.spark.HashPartitioner
 
 object Main {
   def main(args: Array[String]): Unit = {
@@ -28,7 +25,7 @@ object Main {
       topic = args(1)
     }
 
-    var maxRate = "200000"
+    var maxRate = "20000"
 
     if (args.length > 2) {
       maxRate = args(2)
@@ -42,7 +39,7 @@ object Main {
 
     val topics = Array(topic)
     val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> "node85:9092",
+      "bootstrap.servers" -> "node21:9092",
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
       "group.id" -> "test-group",
@@ -56,17 +53,17 @@ object Main {
       ConsumerStrategies.Subscribe[String, String](topics, kafkaParams)
     )
 
-    val rdd0 = kafkaDStream.flatMap(_.value().split(" ")).map((_, 1))
+//    val rdd0 = kafkaDStream.flatMap(_.value().split(" ")).map((_, 1))
+//
+//    val rdd1 = rdd0.repartition(3)
+//      .map((_, 1))
+//      .reduceByKey(_ + _)
+//      .saveAsTextFiles("/home/chenhao/output/counts")
 
-    val rdd1 = rdd0.repartition(3)
-      .map((_, 1))
-      .reduceByKey(_ + _)
-      .saveAsTextFiles("/home/chenhao/output/counts")
-
-//    kafkaDStream.flatMap(line => {
-//      val splits = line.value().split(",")
-//      splits(3).split(" ")
-//    }).map((_, 1)).reduceByKey(_ + _).saveAsTextFiles("/home/chenhao/output/counts")
+    kafkaDStream.flatMap(line => {
+      val splits = line.value().split(",")
+      splits(3).split(" ")
+    }).map((_, 1)).reduceByKey(_ + _).saveAsTextFiles("/home/chenhao/output/counts")
     /*kafkaDStream.foreachRDD(kafkaRDD => {
       if (!kafkaRDD.isEmpty()) {
         //获取当前批次的RDD的偏移量
@@ -89,7 +86,7 @@ object Main {
     })*/
 
     ssc.start()
-    ssc.awaitTerminationOrTimeout(3000 * 1000)
+    ssc.awaitTerminationOrTimeout(30 * 1000)
     ssc.stop()
   }
 }
